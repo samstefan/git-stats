@@ -15,12 +15,13 @@ server
   .use(restify.bodyParser())
 
 server.post('/hook', function (req, res, next) {
-  var gitHookData = JSON.parse(req.params)
-  
-  _.forEach({ gitHookData.commits }, function(num, CommitsData) { 
-    console.log(CommitsData);
-  });
-
+  if (req.params) {
+    var gitHookData = JSON.parse(req.params)
+    
+    async.each(gitHookData.commits, function(error){
+      console.log(CommitsData)
+    })
+  }
 
   // var gitHookCommitsDoc = new gitData({
   //   id: gitHookData.
