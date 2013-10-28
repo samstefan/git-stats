@@ -15,7 +15,7 @@ server
   .use(restify.bodyParser())
 
 server.post('/hook', function (req, res, next) {
-  serviceLocator.logger.info(req.params)
+  console.log(req.params)
 })
 
 // server.get('/hook', function (req, res, next) {
