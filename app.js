@@ -16,23 +16,27 @@ server
 
 server.post('/hook', function (req, res, next) {
 
-  var gitHookData = JSON.parse(req.params)
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
-  serviceLocator.logger.info(gitHookData)
+  serviceLocator.logger.info(JSON.parse(req.params))
 
+  var gitHookData = req.params
 
   if (gitHookData) {
     serviceLocator.logger.info('Getting git hook data')
-     serviceLocator.logger.info(gitHookData.after)
+    serviceLocator.logger.info(gitHookData.after)
+    
     _.forEach(gitHookData.commits, function(gitHookData, error){
       serviceLocator.logger.info('Starting loop for comments')
       serviceLocator.logger.info(gitHookData)
     })
-
+  
   } else {
     serviceLocator.logger.info('No POST data received')
   }
 
+  res.end()
   // var gitHookCommitsDoc = new gitData({
   //   id: gitHookData.
   // }) 
