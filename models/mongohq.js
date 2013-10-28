@@ -21,6 +21,7 @@ var gitCommitSchema = mongoose.Schema({
   removed: String,
   modified: String,
   authorName: String,
+  authorUserName: String,
   authorEmail: String,
 }, { collection: 'gitCommit' })
 

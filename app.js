@@ -22,12 +22,27 @@ server.post('/hook', function (req, res, next) {
     serviceLocator.logger.info('Getting git hook data')
 
     _.forEach(gitHookData.commits, function(gitHookData, i){
-      serviceLocator.logger.info('Starting loop for comments')
-      serviceLocator.logger.info( 'Commit Id: '+gitHookData.id )
+      serviceLocator.logger.info('Starting loop for commits')
+      serviceLocator.logger.info( 'Commit Id: ' + gitHookData.id )
 
-      // var gitHookCommitsDoc = new gitData({
-      //   id: gitHookData.id
-      // })
+      var gitHookCommitsDoc = new gitData({
+        id: gitHookData.id
+        message: gitHookData.message
+        timestamp: gitHookData.timestamp
+        url: gitHookData.url
+        added: gitHookData.added
+        removed: gitHookData.removed
+        modified: gitHookData.modified
+        authorName: gitHookData.author.name
+        authorUserName: gitHookData.author.username
+        authorEmail: gitHookData.author.email
+      })
+
+      gitHookCommitsDoc.save(function (error, gitHookCommitsDoc) {
+        if (error) {
+          serviceLocator.logger.error(error)
+        }
+      })
 
     })
   
@@ -36,7 +51,6 @@ server.post('/hook', function (req, res, next) {
   }
 
   res.end()
-
 
 })
 
