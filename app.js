@@ -15,13 +15,15 @@ server
   .use(restify.bodyParser())
 
 server.post('/hook', function (req, res, next) {
-  if (req.params) {
-    var gitHookData = req.params
-    
-    _.forEach(gitHookData.commits, function(commits, error){
-      console.log(commits)
-    })
 
+  var gitHookData = req.params
+
+  if (gitHookData) {
+    serviceLocator.logger.info('Getting git hook data')
+    _.forEach(gitHookData, function(gitHookData, error){
+      serviceLocator.logger.info('Starting loop for comments')
+      serviceLocator.logger.info(gitHookData)
+    })
   }
 
   // var gitHookCommitsDoc = new gitData({
