@@ -20,10 +20,14 @@ server.post('/hook', function (req, res, next) {
 
   if (gitHookData) {
     serviceLocator.logger.info('Getting git hook data')
+     serviceLocator.logger.info(gitHookData.after)
     _.forEach(gitHookData.commits, function(gitHookData, error){
       serviceLocator.logger.info('Starting loop for comments')
       serviceLocator.logger.info(gitHookData)
     })
+
+  } else {
+    serviceLocator.logger.info('No POST data received')
   }
 
   // var gitHookCommitsDoc = new gitData({
