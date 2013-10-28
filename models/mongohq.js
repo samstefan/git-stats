@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 
+module.exports = function(serviceLocator) {
+
 // MongoHQ Login settings
 
 var dbUser = 'test'
@@ -9,42 +11,43 @@ var dbUser = 'test'
   , dbName = 'github-stats'
 
 mongoose.connect('mongodb://' + dbUser + ':' + dbPass + '@' + dbHost + ':' + dbPort + '/' + dbName, function(error) {
-  if (error) throw error
+  if (error) {
+    serviceLocator.logger.error('Failed to connect to database.')
+  }
 })
 
-var gitCommitSchema = mongoose.Schema({
-  id: String,
-  message: String,
-  timestamp: String,
-  url: String,
-  added: String,
-  removed: String,
-  modified: String,
-  authorName: String,
-  authorUserName: String,
-  authorEmail: String,
-}, { collection: 'gitCommit' })
+  var gitCommitSchema = mongoose.Schema({
+    id: String,
+    message: String,
+    timestamp: String,
+    url: String,
+    added: String,
+    removed: String,
+    modified: String,
+    authorName: String,
+    authorUserName: String,
+    authorEmail: String,
+  }, { collection: 'gitCommit' })
 
-var gitRepoSchema = mongoose.Schema({
-  repoName: String,
-  repoUrl: String,
-  repoUrl: String,
-  repoDescription: String,
-  repoHomePage: String,
-  repoWatchers: String,
-  repoForks: String,
-  repoPrivate: Boolean,
-  repoOwnerName: String,
-  repoOwnerEamil: String,
+  var gitRepoSchema = mongoose.Schema({
+    repoName: String,
+    repoUrl: String,
+    repoUrl: String,
+    repoDescription: String,
+    repoHomePage: String,
+    repoWatchers: String,
+    repoForks: String,
+    repoPrivate: Boolean,
+    repoOwnerName: String,
+    repoOwnerEamil: String,
 
-}, { collection: 'gitRepo' })
+  }, { collection: 'gitRepo' })
 
-var gitRepo = mongoose.model('gitRepo', gitRepoSchema)
-var gitCommit = mongoose.model('gitCommit', gitCommitSchema)
+  var gitRepo = mongoose.model('gitRepo', gitRepoSchema)
+  var gitCommit = mongoose.model('gitCommit', gitCommitSchema)
 
-exports.getGitData = function(callback){
-  // gitData.find({}, function (err, data) {
-  //   if (err) throw err
-  //   callback(null, data)
-  // })
+  return
+    [ gitRepo
+    , gitCommit
+    ]
 }
