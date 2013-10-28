@@ -16,7 +16,7 @@ server
 
 server.post('/hook', function (req, res, next) {
 
-  var gitHookData = req.params
+  var gitHookData = JSON.parse(req.params)
 
   if (gitHookData) {
     serviceLocator.logger.info('Getting git hook data')
