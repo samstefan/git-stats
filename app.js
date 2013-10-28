@@ -18,7 +18,7 @@ server.post('/hook', function (req, res, next) {
   if (req.params) {
     var gitHookData = req.params
     
-    async.each(gitHookData.commits, function(commits ,error){
+    _.forEach(gitHookData.commits, function(commits, error){
       console.log(commits)
     })
 
