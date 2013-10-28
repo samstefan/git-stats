@@ -20,7 +20,7 @@ server.post('/hook', function (req, res, next) {
 
   if (gitHookData) {
     serviceLocator.logger.info('Getting git hook data')
-    _.forEach(gitHookData, function(gitHookData, error){
+    _.forEach(gitHookData.commits, function(gitHookData, error){
       serviceLocator.logger.info('Starting loop for comments')
       serviceLocator.logger.info(gitHookData)
     })
