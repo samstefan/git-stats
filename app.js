@@ -15,21 +15,20 @@ server
   .use(restify.bodyParser())
 
 server.post('/hook', function (req, res, next) {
-
-  res.header("Access-Control-Allow-Origin", "*");
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-
-  console.log(JSON.parse(req.params.payload))
-
-  var gitHookData = req.params
+  
+  var gitHookData = JSON.parse(req.params.payload)
 
   if (gitHookData) {
     serviceLocator.logger.info('Getting git hook data')
-    serviceLocator.logger.info(gitHookData.after)
-    
-    _.forEach(gitHookData.commits, function(gitHookData, error){
+
+    _.forEach(gitHookData.commits, function(gitHookData, i){
       serviceLocator.logger.info('Starting loop for comments')
-      serviceLocator.logger.info(gitHookData)
+      serviceLocator.logger.info('Commit Id: 'gitHookData.id)
+
+      // var gitHookCommitsDoc = new gitData({
+      //   id: gitHookData.id
+      // })
+
     })
   
   } else {
@@ -37,9 +36,7 @@ server.post('/hook', function (req, res, next) {
   }
 
   res.end()
-  // var gitHookCommitsDoc = new gitData({
-  //   id: gitHookData.
-  // }) 
+
 
 })
 
