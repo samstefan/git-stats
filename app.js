@@ -23,7 +23,7 @@ server.post('/hook', function (req, res, next) {
 
     _.forEach(gitHookData.commits, function(gitHookData, i){
       serviceLocator.logger.info('Starting loop for comments')
-      serviceLocator.logger.info('Commit Id: 'gitHookData.id)
+      serviceLocator.logger.info( 'Commit Id: '+gitHookData.id )
 
       // var gitHookCommitsDoc = new gitData({
       //   id: gitHookData.id
