@@ -23,9 +23,8 @@ server.post('/hook', function (req, res, next) {
 
     _.forEach(gitHookData.commits, function(gitHookData, i){
       serviceLocator.logger.info('Starting loop for commits')
-      serviceLocator.logger.info( 'Commit Id: ' + gitHookData.id )
 
-      var gitHookCommitsDoc = new gitData({
+      var gitHookCommitsDoc = new gitCommitSchema({
         id: gitHookData.id,
         message: gitHookData.message,
         timestamp: gitHookData.timestamp,
