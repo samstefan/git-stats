@@ -7,8 +7,8 @@ module.exports = function(serviceLocator) {
 var dbUser = 'test'
   , dbPass = 'test001'
   , dbHost = 'paulo.mongohq.com'
-  , dbPort = '10020'
-  , dbName = 'github-stats'
+  , dbPort = '10032'
+  , dbName = 'node-gitstats'
 
 mongoose.connect('mongodb://' + dbUser + ':' + dbPass + '@' + dbHost + ':' + dbPort + '/' + dbName, function(error) {
   if (error) {
