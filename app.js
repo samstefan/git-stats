@@ -19,7 +19,7 @@ server.post('/hook', function (req, res, next) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "X-Requested-With");
 
-  serviceLocator.logger.info(JSON.parse(req.params))
+  console.log(req.params)
 
   var gitHookData = req.params
 
