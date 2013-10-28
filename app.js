@@ -26,15 +26,15 @@ server.post('/hook', function (req, res, next) {
       serviceLocator.logger.info( 'Commit Id: ' + gitHookData.id )
 
       var gitHookCommitsDoc = new gitData({
-        id: gitHookData.id
-        message: gitHookData.message
-        timestamp: gitHookData.timestamp
-        url: gitHookData.url
-        added: gitHookData.added
-        removed: gitHookData.removed
-        modified: gitHookData.modified
-        authorName: gitHookData.author.name
-        authorUserName: gitHookData.author.username
+        id: gitHookData.id,
+        message: gitHookData.message,
+        timestamp: gitHookData.timestamp,
+        url: gitHookData.url,
+        added: gitHookData.added,
+        removed: gitHookData.removed,
+        modified: gitHookData.modified,
+        authorName: gitHookData.author.name,
+        authorUserName: gitHookData.author.username,
         authorEmail: gitHookData.author.email
       })
 
