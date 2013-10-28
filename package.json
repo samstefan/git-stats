@@ -1,0 +1,16 @@
+{
+  "name": "Node-Stats",
+  "version": "0.0.1",
+  "private": true,
+  "scripts": {
+    "start": "node app"
+  },
+  "dependencies": {
+    "restify": "*",
+    "mongoose": "3.5.7",
+    "async": "~0.2.5",
+    "lodash": "0.10.0",
+    "service-locator": "~0.0.2",
+    "bunyan": "~0.22.0"
+  }
+}
