@@ -39,7 +39,7 @@ server.post('/hook', function (req, res, next) {
       })
 
       gitHookCommitsDoc.save(function (error, gitHookCommitsDoc) {
-        serviceLocator.logger.info('Saving data: '+gitHookCommitsDoc+' to database')
+        serviceLocator.logger.info('Saving commit 'gitHookData.id' to database')
         if (error) {
           serviceLocator.logger.error(error)
         }
@@ -61,14 +61,14 @@ server.post('/hook', function (req, res, next) {
     })
 
     gitHookRepoDoc.save(function (error, gitHookRepoDoc) {
-      serviceLocator.logger.info('Saving data: '+gitHookRepoDoc+' to database')
+      serviceLocator.logger.info('Saving repository data from '+gitHookData.repository.name+' to database')
       if (error) {
         serviceLocator.logger.error(error)
       }
     })
 
   } else {
-    serviceLocator.logger.info('No POST data received')
+    serviceLocator.logger.info('No POST data received :(')
   }
 
   res.end()
