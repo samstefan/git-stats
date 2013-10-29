@@ -23,7 +23,6 @@ server.post('/hook', function (req, res, next) {
 
     // Loop through the commits then save them
     _.forEach(gitHookData.commits, function(gitHookData, i){
-      serviceLocator.logger.info('Starting loop '+i+' for commits')
 
       var gitHookCommitsDoc = new mongohq.gitCommit ({
         id: gitHookData.id,
