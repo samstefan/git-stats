@@ -39,7 +39,7 @@ server.post('/hook', function (req, res, next) {
       })
 
       gitHookCommitsDoc.save(function (error, gitHookCommitsDoc) {
-        serviceLocator.logger.info('Saving commit 'gitHookData.id' to database')
+        serviceLocator.logger.info('Saving commit '+gitHookData.id+' to database')
         if (error) {
           serviceLocator.logger.error(error)
         }
