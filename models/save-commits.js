@@ -2,7 +2,7 @@ var mongoose = require('mongoose')
   , mongohq = require('./mongohq')
   , _ = require('lodash')
 
-module.exports = function(serviceLocator) {
+module.exports = function(serviceLocator, hookData) {
 
   function saveCommits(hookData) {
     _.forEach(hookData.commits, function(commit, i){

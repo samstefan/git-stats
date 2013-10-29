@@ -3,7 +3,7 @@ var mongoose = require('mongoose')
   , mongohq = require('./mongohq')
 
 
-module.exports = function(serviceLocator) {
+module.exports = function(serviceLocator, repo) {
 
   function saveRepo(repo) {
     var currentRepoName = repo.repository.name
