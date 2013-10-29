@@ -44,14 +44,16 @@ var gitRepoSchema = mongoose.Schema ({
 var gitRepo = mongoose.model('gitRepo', gitRepoSchema)
 var gitCommit = mongoose.model('gitCommit', gitCommitSchema)
 
-var getCommits = 
-  gitRepo.find({}, function (error, data) {
-    if (error) {
-      serviceLocator.logger.error('Error getting commits: '+error)
-    } else {
-      callback(null, data)
-    }
-  })
+var getCommits =
+  function(callback) {
+    gitRepo.find({}, function (error, data) {
+      if (error) {
+        serviceLocator.logger.error('Error getting commits: '+error)
+      } else {
+        callback(null, data)
+      }
+    })
+  }
 
 exports.gitCommit = gitCommit
 exports.getCommits = getCommits
