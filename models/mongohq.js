@@ -16,6 +16,7 @@ mongoose.connect('mongodb://' + dbUser + ':' + dbPass + '@' + dbHost + ':' + dbP
 
 var gitCommitSchema = mongoose.Schema ({
   id: String,
+  commitedRepo: String,
   message: String,
   timestamp: String,
   url: String,
@@ -45,7 +46,7 @@ var gitCommit = mongoose.model('gitCommit', gitCommitSchema)
 
 var getCommits =
   function(callback) {
-    gitRepo.find({}, function (error, data) {
+    gitCommit.find({}, function (error, data) {
       if (error) {
         serviceLocator.logger.error('Error getting commits: '+error)
       } else {
