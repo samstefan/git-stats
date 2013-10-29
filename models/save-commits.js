@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 
 module.exports = function(serviceLocator) {
 
-  function saveCommits(hookData) {
+  function save(hookData) {
     serviceLocator.logger.info('Running save commits')
     serviceLocator.logger.info(hookData)
     _.forEach(hookData.commits, function(commit, i){

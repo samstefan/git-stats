@@ -5,7 +5,7 @@ var mongoose = require('mongoose')
 
 module.exports = function(serviceLocator) {
 
-  function saveRepo(repo) {
+  function save(repo) {
     var currentRepoName = repo.repository.name
 
     // Check if repository already exists
