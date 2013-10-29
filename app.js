@@ -24,10 +24,10 @@ server.post('/hook', function (req, res, next) {
     serviceLocator.logger.info('Getting git hook data')
 
     // Loop through the commits then save them
-    commits.saveCommits(gitHookData)
+    commits.saveCommits(serviceLocator, gitHookData)
 
     // Save the repository information
-    repository.saveRepo(gitHookData)
+    repository.saveRepo(serviceLocator, gitHookData)
 
   } else {
     serviceLocator.logger.info('No POST data received :(')
