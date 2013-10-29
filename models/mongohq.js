@@ -2,19 +2,19 @@ var mongoose = require('mongoose');
 
 module.exports = function(serviceLocator) {
 
-// MongoHQ Login settings
+  // MongoHQ Login settings
 
-var dbUser = 'test'
-  , dbPass = 'test001'
-  , dbHost = 'paulo.mongohq.com'
-  , dbPort = '10032'
-  , dbName = 'node-gitstats'
+  var dbUser = 'test'
+    , dbPass = 'test001'
+    , dbHost = 'paulo.mongohq.com'
+    , dbPort = '10032'
+    , dbName = 'node-gitstats'
 
-mongoose.connect('mongodb://' + dbUser + ':' + dbPass + '@' + dbHost + ':' + dbPort + '/' + dbName, function(error) {
-  if (error) {
-    serviceLocator.logger.error('Failed to connect to database.')
-  }
-})
+  mongoose.connect('mongodb://' + dbUser + ':' + dbPass + '@' + dbHost + ':' + dbPort + '/' + dbName, function(error) {
+    if (error) {
+      serviceLocator.logger.error('Failed to connect to database.')
+    }
+  })
 
   var gitCommitSchema = mongoose.Schema({
     id: String,
