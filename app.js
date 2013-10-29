@@ -24,7 +24,7 @@ server.post('/hook', function (req, res, next) {
     _.forEach(gitHookData.commits, function(gitHookData, i){
       serviceLocator.logger.info('Starting loop for commits')
 
-      var gitHookCommitsDoc = new gitCommit.gitCommit({
+      var gitHookCommitsDoc = new mongohq.gitCommit ({
         id: gitHookData.id,
         message: gitHookData.message,
         timestamp: gitHookData.timestamp,
@@ -42,7 +42,6 @@ server.post('/hook', function (req, res, next) {
           serviceLocator.logger.error(error)
         }
       })
-
     })
   
   } else {
@@ -53,15 +52,15 @@ server.post('/hook', function (req, res, next) {
 
 })
 
-// server.get('/hook', function (req, res, next) {
-//   mongohq.getGitData(function(error, themes){
-//     if (error){
-//       serviceLocator.logger.error(error)
-//     } else {
+server.get('/commits', function (req, res, next) {
+  mongohq.getGitData(function(error, themes){
+    if (error){
+      serviceLocator.logger.error(error)
+    } else {
 
-//     }
-//   })
-// })
+    }
+  })
+})
 
 server.listen(3010, function () {
   serviceLocator.logger.info('%s listening at %s', server.name, server.url)
