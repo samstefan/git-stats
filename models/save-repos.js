@@ -50,7 +50,7 @@ module.exports = function(serviceLocator) {
   }
 
   return {
-    saveRepo: saveRepo
+    save: save
   }
    
 }

@@ -33,7 +33,7 @@ module.exports = function(serviceLocator) {
   }
 
   return {
-    saveCommits: saveCommits
+    save: save
   }
 
 }
