@@ -3,9 +3,10 @@ var mongoose = require('mongoose')
   , _ = require('lodash')
 
 module.exports = function(serviceLocator, hookData) {
-  serviceLocator.logger.error(hookData)
 
   function saveCommits() {
+    serviceLocator.logger.info('Running save commits')
+    serviceLocator.logger.info(hookData)
     _.forEach(hookData.commits, function(commit, i){
 
       var gitHookCommitsDoc = new mongohq.gitCommit ({
