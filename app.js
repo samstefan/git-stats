@@ -21,6 +21,7 @@ server.post('/hook', function (req, res, next) {
   if (gitHookData) {
     serviceLocator.logger.info('Getting git hook data')
 
+    // Loop through the commits then save them
     _.forEach(gitHookData.commits, function(gitHookData, i){
       serviceLocator.logger.info('Starting loop '+i+' for commits')
 
@@ -44,7 +45,28 @@ server.post('/hook', function (req, res, next) {
         }
       })
     })
-  
+
+    // Save the repository information
+    var gitHookRepoDoc = new mongohq.gitRepo ({
+      repoName: gitHookData.repository.name,
+      repoUrl: gitHookData.repository.url,
+      repoPushedAt: gitHookData.repository.pushed_at,
+      repoLanguage: gitHookData.repository.language,
+      repoDescription: gitHookData.repository.description,
+      repoWatchers: gitHookData.repository.watchers,
+      repoForks: gitHookData.repository.forks,
+      repoPrivate: gitHookData.repository.private,
+      repoOwnerName: gitHookData.repository.owner.name,
+      repoOwnerEamil: gitHookData.repository.owner.email,
+    })
+
+    gitHookRepoDoc.save(function (error, gitHookRepoDoc) {
+      serviceLocator.logger.info('Saving data: '+gitHookRepoDoc+' to database')
+      if (error) {
+        serviceLocator.logger.error(error)
+      }
+    })
+
   } else {
     serviceLocator.logger.info('No POST data received')
   }

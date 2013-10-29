@@ -30,15 +30,14 @@ var gitCommitSchema = mongoose.Schema ({
 var gitRepoSchema = mongoose.Schema ({
   repoName: String,
   repoUrl: String,
-  repoUrl: String,
+  repoPushedAt: String,
+  repoLanguage: String,
   repoDescription: String,
-  repoHomePage: String,
   repoWatchers: String,
   repoForks: String,
   repoPrivate: Boolean,
   repoOwnerName: String,
   repoOwnerEamil: String,
-
 }, { collection: 'gitRepo' })
 
 var gitRepo = mongoose.model('gitRepo', gitRepoSchema)
