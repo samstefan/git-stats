@@ -4,7 +4,7 @@ var mongoose = require('mongoose')
 
 module.exports = function(serviceLocator, hookData) {
 
-  function saveCommits(hookData) {
+  function saveCommits() {
     _.forEach(hookData.commits, function(commit, i){
 
       var gitHookCommitsDoc = new mongohq.gitCommit ({
