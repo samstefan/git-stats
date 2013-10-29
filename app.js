@@ -22,7 +22,7 @@ server.post('/hook', function (req, res, next) {
     serviceLocator.logger.info('Getting git hook data')
 
     _.forEach(gitHookData.commits, function(gitHookData, i){
-      serviceLocator.logger.info('Starting loop for commits')
+      serviceLocator.logger.info('Starting loop '+i+' for commits')
 
       var gitHookCommitsDoc = new mongohq.gitCommit ({
         id: gitHookData.id,
@@ -38,7 +38,6 @@ server.post('/hook', function (req, res, next) {
       })
 
       serviceLocator.logger.info('Saving data: '+gitHookCommitsDoc)
-
 
       gitHookCommitsDoc.save(function (error, gitHookCommitsDoc) {
         if (error) {

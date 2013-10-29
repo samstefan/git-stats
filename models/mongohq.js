@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-module.exports = function(serviceLocator) {
+// module.exports = function(serviceLocator) {
 
   // MongoHQ Login settings
 
@@ -46,8 +46,8 @@ module.exports = function(serviceLocator) {
   var gitRepo = mongoose.model('gitRepo', gitRepoSchema)
   var gitCommit = mongoose.model('gitCommit', gitCommitSchema)
 
-  return
-    [ gitRepo
-    , gitCommit
-    ]
-}
+//   return
+//     [ gitRepo
+//     , gitCommit
+//     ]
+// }
