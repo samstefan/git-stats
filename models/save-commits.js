@@ -2,9 +2,9 @@ var mongoose = require('mongoose')
   , mongohq = require('./mongohq')
   , _ = require('lodash')
 
-module.exports = function(serviceLocator, hookData) {
+module.exports = function(serviceLocator) {
 
-  function saveCommits() {
+  function saveCommits(hookData) {
     serviceLocator.logger.info('Running save commits')
     serviceLocator.logger.info(hookData)
     _.forEach(hookData.commits, function(commit, i){

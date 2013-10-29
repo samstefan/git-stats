@@ -3,10 +3,9 @@ var mongoose = require('mongoose')
   , mongohq = require('./mongohq')
 
 
-module.exports = function(serviceLocator, repo) {
-  serviceLocator.logger.error(repo)
-  function saveRepo() {
-    serviceLocator.logger.error(currentRepoName)
+module.exports = function(serviceLocator) {
+
+  function saveRepo(repo) {
     var currentRepoName = repo.repository.name
 
     // Check if repository already exists

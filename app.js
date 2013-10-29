@@ -5,8 +5,8 @@ var restify = require('restify')
   , serviceLocator = require('service-locator').createServiceLocator()
   , mongoose = require('mongoose')
   , mongohq = require('./models/mongohq')
-  , commits = require('./models/save-commits')
-  , repository = require('./models/save-repos')
+  , SaveCommits = require('./models/save-commits')
+  , SaveRepos = require('./models/save-repos')
 
 serviceLocator.register('logger', bunyan.createLogger({name: 'github-stats'}))
 
@@ -16,6 +16,9 @@ server
   .use(restify.fullResponse())
   .use(restify.bodyParser())
 
+var saveCommits = SaveCommits(serviceLocator)
+  , saveRepos = SaveRepos(serviceLocator)
+
 server.post('/hook', function (req, res, next) {
   
   var gitHookData = JSON.parse(req.params.payload)
@@ -24,10 +27,10 @@ server.post('/hook', function (req, res, next) {
     serviceLocator.logger.info('Getting git hook data')
 
     // Loop through the commits then save them
-    commits.saveCommits(serviceLocator, gitHookData)
+    commits.saveCommits(gitHookData)
 
     // Save the repository information
-    repository.saveRepo(serviceLocator, gitHookData)
+    repository.saveRepo(gitHookData)
 
   } else {
     serviceLocator.logger.info('No POST data received :(')
