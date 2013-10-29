@@ -3,6 +3,7 @@ var mongoose = require('mongoose')
   , _ = require('lodash')
 
 module.exports = function(serviceLocator, hookData) {
+  serviceLocator.logger.error(hookData)
 
   function saveCommits() {
     _.forEach(hookData.commits, function(commit, i){
