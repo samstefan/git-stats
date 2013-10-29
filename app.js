@@ -17,7 +17,7 @@ server
   .use(restify.bodyParser())
 
 var saveCommits = SaveCommits(serviceLocator)
-  , saveRepos = SaveRepos(serviceLocator)
+  , saveRepo = SaveRepos(serviceLocator)
 
 server.post('/hook', function (req, res, next) {
   
