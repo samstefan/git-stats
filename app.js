@@ -37,6 +37,9 @@ server.post('/hook', function (req, res, next) {
         authorEmail: gitHookData.author.email
       })
 
+      serviceLocator.logger.info('Saving data: '+gitHookCommitsDoc)
+
+
       gitHookCommitsDoc.save(function (error, gitHookCommitsDoc) {
         if (error) {
           serviceLocator.logger.error(error)
