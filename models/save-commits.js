@@ -6,7 +6,6 @@ module.exports = function(serviceLocator) {
 
   function save(hookData) {
     serviceLocator.logger.info('Running save commits')
-    serviceLocator.logger.info(hookData)
     _.forEach(hookData.commits, function(commit, i){
 
       var gitHookCommitsDoc = new mongohq.gitCommit ({
@@ -24,7 +23,7 @@ module.exports = function(serviceLocator) {
       })
 
       gitHookCommitsDoc.save(function (error, gitHookCommitsDoc) {
-        serviceLocator.logger.info('Saving commit '+gitHookData.id+' to database')
+        serviceLocator.logger.info('Saving commit '+commit.id+' to database')
         if (error) {
           serviceLocator.logger.error(error)
         }
