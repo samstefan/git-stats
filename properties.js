@@ -8,8 +8,15 @@ module.exports = function() {
     , dbName: 'node-gitstats'
     }
 
+  // Allowed domains for aJax requests
+  var allowedDomains = 
+    [ 'yourdomain.com'    
+    , 'www.yourdomain.com'
+    ]
+
   return {
-    database: database
+    database: database,
+    allowedDomains: allowedDomains
   }
 
 }
