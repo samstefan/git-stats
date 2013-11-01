@@ -29,6 +29,10 @@ Commits for the week
 
 `localhost:3010/:reponame/commits/week`
 
+You can also get all the commits for a time period by using `all` as the repository name
+
+`localhost:3010/all/commits/week`
+
 #### Example API Response
 
 ```
