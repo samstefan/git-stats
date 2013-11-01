@@ -1,11 +1,10 @@
-var mongoose = require('mongoose')
-  , schemas = require('./schemas')
+var schemas = require('./schemas')
   , async = require('async')
 
 module.exports = function(serviceLocator) {
 
   function save(hookData) {
-    async.each(hookData.commits, function(commit, i){
+    async.each(hookData.commits, function(commit){
 
       var gitHookCommitsDoc = new schemas.gitCommit ({
         id: commit.id,
@@ -21,7 +20,7 @@ module.exports = function(serviceLocator) {
         authorEmail: commit.author.email
       })
 
-      gitHookCommitsDoc.save(function (error, gitHookCommitsDoc) {
+      gitHookCommitsDoc.save(function (error) {
         serviceLocator.logger.info('Saving commit '+commit.id+' to database')
         if (error) {
           serviceLocator.logger.error(error)

@@ -1,7 +1,7 @@
 var bunyan = require('bunyan')
   , assert = require('assert')
   , serviceLocator = require('service-locator').createServiceLocator()
-  , Bootstrap = require('./../lib/mongohq')
+  , Bootstrap = require('./../lib/database')
   , SaveCommits = require('./../models/save-commits')
   , SaveRepos = require('./../models/save-repos')
 
@@ -180,8 +180,8 @@ describe('repoExists', function() {
 
 describe('saveRepo', function() {
   it('saveRepo should save without error', function (done) {
-    saveRepo.save(apiHook, function () {
-      done()
+    saveRepo.save(apiHook, function (error, returnRepo) {
+      done()  
     })
   })
 })

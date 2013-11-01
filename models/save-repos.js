@@ -1,12 +1,9 @@
-var mongoose = require('mongoose')
-  , schemas = require('./schemas')
-  , Bootstrap = require('./../lib/mongohq')
+var schemas = require('./schemas')
 
 module.exports = function(serviceLocator) {
 
   // Check if repository already exists
   function findByName(currentRepoName, callback) {
-    var doesRepoExist = true
     schemas.gitRepo.find({ repoName: currentRepoName }, function (error, data) {
       if (error) {
         serviceLocator.logger.error('Error getting commits: '+error)
@@ -14,7 +11,7 @@ module.exports = function(serviceLocator) {
       }
 
       if (data.length > 0) {
-        callback(null, true)
+        callback(null, data)
       } else {
         callback(null, false)
       }
@@ -40,7 +37,7 @@ module.exports = function(serviceLocator) {
           repoOwnerEamil: repo.repository.owner.email,
         })
 
-        gitHookRepoDoc.save( function (error, gitHookRepoDoc) {
+        gitHookRepoDoc.save( function (error) {
           if (error) {
             serviceLocator.logger.error(error)
           } else {
@@ -48,7 +45,7 @@ module.exports = function(serviceLocator) {
           }
         })
       } else {
-        callback(null, 'Not saving repository as it already exists.')
+        callback(null, returnedRepo)
       }
     })
   }

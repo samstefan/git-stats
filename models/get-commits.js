@@ -1,6 +1,4 @@
-var mongoose = require('mongoose')
-  , schemas = require('./schemas')
-  , async = require('async')
+var schemas = require('./schemas')
   , moment = require('moment')
 
 module.exports = function(serviceLocator) {
