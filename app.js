@@ -1,6 +1,5 @@
 var restify = require('restify')
   , bunyan = require('bunyan')
-  , async = require('async')
   , serviceLocator = require('service-locator').createServiceLocator()
   , mongoose = require('mongoose')
   , Bootstrap = require('./lib/mongohq')
