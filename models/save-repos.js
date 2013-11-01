@@ -48,7 +48,7 @@ module.exports = function(serviceLocator) {
           }
         })
       } else {
-        callback(null, 'Repository already exists.')
+        callback(null, 'Not saving repository as it already exists.')
       }
     })
   }

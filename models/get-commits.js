@@ -4,49 +4,48 @@ var mongoose = require('mongoose')
 
 module.exports = function(serviceLocator) {
 
-  var d = new Date()
-    , hour = d.getHours()
-    , min = d.getMinutes()
-    , month = d.getMonth()
-    , year = d.getFullYear()
-    , sec = d.getSeconds()
-    , day = d.getDate()
+  var date = new Date()
+    , hour = date.getHours()
+    , min = date.getMinutes()
+    , month = date.getMonth()
+    , year = date.getFullYear()
+    , sec = date.getSeconds()
+    , day = date.getDate()
 
-
-  function getDay(repoName, callback) {
-
-    // var o = {}
-
-    // o.map = function () {
-    //   emit(this.commitedRepo);
-    // }
-
-    // o.reduce = function (k, vals) { return vals.length }
-
-    // schemas.gitCommit.mapReduce(o, function (err, results) {
-    //   console.log(results)
-    // })
-
-    schemas.gitCommit.find({ timestamp: { $lt: new Date(), $gt: new Date(year) }}, function (error, data) {
+  function getHour(repoName, callback) {
+    schemas.gitCommit.find({ timestamp: { $lt: new Date(), $gt: new Date(year+','+month+','+day+','+hour+','+min+','+sec) }, commitedRepo: repoName }, function (error, data) {
       if (error) {
         return callback(error) 
       } else {
-        console.log(data)
+        callback(null, data)
       }
     })
+  }
 
+  function getDay(repoName, callback) {
+    schemas.gitCommit.find({ timestamp: { $lt: new Date(), $gt: new Date(year+','+month+','+day) }, commitedRepo: repoName }, function (error, data) {
+      if (error) {
+        return callback(error) 
+      } else {
+        callback(null, data)
+      }
+    })
+  }
 
-    // gitCommit.find({}, function (error, data) {
-    //   if (error) {
-    //     return callback(error) 
-    //   } else {
-    //     callback(null, data)
-    //   }
-    // })
+  function getWeek(repoName, callback) {
+    schemas.gitCommit.find({ timestamp: { $lt: new Date(), $gt: new Date(year+','+month+','+day*7) }, commitedRepo: repoName }, function (error, data) {
+      if (error) {
+        return callback(error) 
+      } else {
+        callback(null, data)
+      }
+    })
   }
 
   return {
-    getDay: getDay
+    getHour: getHour,
+    getDay: getDay,
+    getWeek: getWeek,
   }
 
 }

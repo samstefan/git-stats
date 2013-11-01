@@ -28,10 +28,9 @@ bootstrap( function () {
   server.post('/hook', function (req, res, next) {
     var gitHookData = JSON.parse(req.params.payload)
     if (gitHookData) {
+
       serviceLocator.logger.info('Getting git hook data')
-      // Loop through the commits then save them
-      saveCommits.save(gitHookData)
-      // Save the repository information
+      saveCommits.save(gitHookData)  
       saveRepo.save(gitHookData, function (error, message) {
         if (error) {
           serviceLocator.logger.error(error)
@@ -39,18 +38,44 @@ bootstrap( function () {
           serviceLocator.logger.info(message)
         }
       })
+
     } else {
       serviceLocator.logger.info('No POST data received :(')
     }
     res.end()
   })
 
-  server.get('/commits/day', function (req, res, next) {
-    getCommits.getDay('hooks-test', function(error, commits){
+  server.get('/:repo/commits/hour', function (req, res, next) {
+    var repoName = req.params.repo
+    getCommits.getHour(repoName, function (error, commits){
       if (error){
         serviceLocator.logger.error(error)
       } else {
-        serviceLocator.logger.info('Getting git commits for the week')
+        serviceLocator.logger.info('Getting a hour of commits form '+repoName)
+        res.json(commits)
+      }
+    })
+  })
+
+  server.get('/:repo/commits/day', function (req, res, next) {
+    var repoName = req.params.repo
+    getCommits.getDay(repoName, function (error, commits){
+      if (error){
+        serviceLocator.logger.error(error)
+      } else {
+        serviceLocator.logger.info('Getting a day of commits form '+repoName)
+        res.json(commits)
+      }
+    })
+  })
+
+  server.get('/:repo/commits/week', function (req, res, next) {
+    var repoName = req.params.repo
+    getCommits.getWeek(repoName, function (error, commits){
+      if (error){
+        serviceLocator.logger.error(error)
+      } else {
+        serviceLocator.logger.info('Getting a week of commits form '+repoName)
         res.json(commits)
       }
     })
