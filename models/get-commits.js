@@ -16,9 +16,14 @@ module.exports = function(serviceLocator) {
   }
 
   function getFilter(date, repoName) {
-    return {
+
+    if (repoName === 'all') {
       timestamp: { $gt: date }
-    , commitedRepo: repoName
+    } else {
+      return {
+        timestamp: { $gt: date }
+      , commitedRepo: repoName
+      }
     }
   }
 
