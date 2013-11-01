@@ -14,10 +14,6 @@ var bootstrap = new Bootstrap(serviceLocator)
 
 bootstrap( function () {
 
-  var d = new Date()
-
-  console.log(d)
-
   var server = restify.createServer({ name: 'github-stats' })
 
   server
@@ -36,7 +32,13 @@ bootstrap( function () {
       // Loop through the commits then save them
       saveCommits.save(gitHookData)
       // Save the repository information
-      saveRepo.save(gitHookData)
+      saveRepo.save(gitHookData, function (error, message) {
+        if (error) {
+          serviceLocator.logger.error(error)
+        } else {
+          serviceLocator.logger.info(message)
+        }
+      })
     } else {
       serviceLocator.logger.info('No POST data received :(')
     }

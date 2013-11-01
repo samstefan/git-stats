@@ -180,7 +180,7 @@ describe('repoExists', function() {
 
 describe('saveRepo', function() {
   it('saveRepo should save without error', function (done) {
-    saveRepo.save(apiHook, function ( ) {
+    saveRepo.save(apiHook, function () {
       done()
     })
   })
