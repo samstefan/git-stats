@@ -1,39 +1,33 @@
 var mongoose = require('mongoose')
   , schemas = require('./schemas')
   , async = require('async')
+  , moment = require('moment')
 
 module.exports = function(serviceLocator) {
 
-  var date = new Date()
-    , hour = date.getHours()
-    , min = date.getMinutes()
-    , month = date.getMonth()
-    , year = date.getFullYear()
-    , sec = date.getSeconds()
-    , day = date.getDate()
-
   function getHour(repoName, callback) {
-    schemas.gitCommit.find({ timestamp: { $lt: new Date(), $gt: new Date(year+','+month+','+day+','+hour+','+min+','+sec) }, commitedRepo: repoName }, function (error, data) {
-      if (error) {
-        return callback(error) 
-      } else {
-        callback(null, data)
-      }
-    })
+    findCommitsForDate(new Date(moment().subtract('hours', 1)), repoName, callback)
   }
 
   function getDay(repoName, callback) {
-    schemas.gitCommit.find({ timestamp: { $lt: new Date(), $gt: new Date(year+','+month+','+day) }, commitedRepo: repoName }, function (error, data) {
-      if (error) {
-        return callback(error) 
-      } else {
-        callback(null, data)
-      }
-    })
+    findCommitsForDate(new Date(moment().subtract('days', 1)), repoName, callback)
   }
 
   function getWeek(repoName, callback) {
-    schemas.gitCommit.find({ timestamp: { $lt: new Date(), $gt: new Date(year+','+month+','+day*7) }, commitedRepo: repoName }, function (error, data) {
+    findCommitsForDate(new Date(moment().subtract('weeks', 1)), repoName, callback)
+  }
+
+  function getFilter(date, repoName) {
+    return {
+      timestamp: { $gt: date }
+    , commitedRepo: repoName
+    }
+  }
+
+  function findCommitsForDate(date, repoName, callback) {
+    var filter = getFilter(date, repoName)
+
+    schemas.gitCommit.find(filter, function (error, data) {
       if (error) {
         return callback(error) 
       } else {

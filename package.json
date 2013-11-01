@@ -3,9 +3,6 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "start": "node app"
-  },
-  "scripts": {
     "test": "make test"
   },
   "dependencies": {
@@ -15,6 +12,7 @@
     "lodash": "0.10.0",
     "service-locator": "~0.0.2",
     "bunyan": "~0.22.0",
-    "mocha": "~1.13.0"
+    "mocha": "~1.13.0",
+    "moment": "~2.4.0"
   }
 }
