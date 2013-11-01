@@ -1,56 +1,61 @@
 var mongoose = require('mongoose')
-  , _ = require('lodash')
-  , mongohq = require('./mongohq')
-
+  , schemas = require('./schemas')
+  , Bootstrap = require('./../lib/mongohq')
 
 module.exports = function(serviceLocator) {
 
-  function save(repo) {
+  // Check if repository already exists
+  function findByName(currentRepoName, callback) {
+    var doesRepoExist = true
+    schemas.gitRepo.find({ repoName: currentRepoName }, function (error, data) {
+      if (error) {
+        serviceLocator.logger.error('Error getting commits: '+error)
+        return callback(error)
+      }
+
+      if (data.length > 0) {
+        callback(null, true)
+      } else {
+        callback(null, false)
+      }
+    })
+  }
+
+  function save(repo, callback) {
     var currentRepoName = repo.repository.name
 
-    // Check if repository already exists
-    var repoExist = function () {
-      var doesRepoExist = false
-      gitRepo.find({}, function (error, data) {
-        if (error) {
-          serviceLocator.logger.error('Error getting commits: '+error)
-        } else {
-          _.forEach(data.repoName, function(repoName, i){
-            if ( repoName === currentRepoName ) {
-              serviceLocator.logger.info('Not saving repository, already exists')
-              doesRepoExist = true
-            }
-          })    
-        }
-      })
-      return doesRepoExist
-    }
+    findByName(currentRepoName, function (error, returnedRepo) {
+      if (error) return callback(error)
+      if (!returnedRepo) {
+        var gitHookRepoDoc = new schemas.gitRepo ({
+          repoName: repo.repository.name,
+          repoUrl: repo.repository.url,
+          repoPushedAt: repo.repository.pushed_at,
+          repoLanguage: repo.repository.language,
+          repoDescription: repo.repository.description,
+          repoWatchers: repo.repository.watchers,
+          repoForks: repo.repository.forks,
+          repoPrivate: repo.repository.private,
+          repoOwnerName: repo.repository.owner.name,
+          repoOwnerEamil: repo.repository.owner.email,
+        })
 
-    if ( repoExist ) {
-      var gitHookRepoDoc = new mongohq.gitRepo ({
-        repoName: repo.repository.name,
-        repoUrl: repo.repository.url,
-        repoPushedAt: repo.repository.pushed_at,
-        repoLanguage: repo.repository.language,
-        repoDescription: repo.repository.description,
-        repoWatchers: repo.repository.watchers,
-        repoForks: repo.repository.forks,
-        repoPrivate: repo.repository.private,
-        repoOwnerName: repo.repository.owner.name,
-        repoOwnerEamil: repo.repository.owner.email,
-      })
-
-      gitHookRepoDoc.save(function (error, gitHookRepoDoc) {
-        serviceLocator.logger.info('Saving repository data from '+repo.repository.name+' to database')
-        if (error) {
-          serviceLocator.logger.error(error)
-        }
-      })
-    }
+        gitHookRepoDoc.save( function (error, gitHookRepoDoc) {
+          if (error) {
+            serviceLocator.logger.error(error)
+          } else {
+            callback(null, console.log('saved'))
+          }
+        })
+      } else {
+        callback(null, console.log('Repository already exists.'))
+      }
+    })
   }
 
   return {
-    save: save
+    save: save,
+    findByName: findByName
   }
    
 }

@@ -5,12 +5,16 @@
   "scripts": {
     "start": "node app"
   },
+  "scripts": {
+    "test": "make test"
+  },
   "dependencies": {
     "restify": "*",
     "mongoose": "3.5.7",
     "async": "~0.2.5",
     "lodash": "0.10.0",
     "service-locator": "~0.0.2",
-    "bunyan": "~0.22.0"
+    "bunyan": "~0.22.0",
+    "mocha": "~1.13.0"
   }
 }

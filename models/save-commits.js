@@ -1,14 +1,13 @@
 var mongoose = require('mongoose')
-  , mongohq = require('./mongohq')
-  , _ = require('lodash')
+  , schemas = require('./schemas')
+  , async = require('async')
 
 module.exports = function(serviceLocator) {
 
   function save(hookData) {
-    serviceLocator.logger.info('Running save commits')
-    _.forEach(hookData.commits, function(commit, i){
+    async.each(hookData.commits, function(commit, i){
 
-      var gitHookCommitsDoc = new mongohq.gitCommit ({
+      var gitHookCommitsDoc = new schemas.gitCommit ({
         id: commit.id,
         commitedRepo: hookData.repository.name,
         message: commit.message,
