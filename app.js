@@ -1,5 +1,6 @@
 var restify = require('restify')
   , bunyan = require('bunyan')
+  , newRelic = require('newrelic')
   , serviceLocator = require('service-locator').createServiceLocator()
   , routes = require('./views')
   , cors = require('./lib/middleware/cors')

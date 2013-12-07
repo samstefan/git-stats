@@ -1,6 +1,6 @@
 {
   "name": "Node-Stats",
-  "version": "0.0.1",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "test": "make test"
@@ -13,6 +13,7 @@
     "service-locator": "~0.0.2",
     "bunyan": "~0.22.0",
     "mocha": "~1.13.0",
-    "moment": "~2.4.0"
+    "moment": "~2.4.0",
+    "newrelic": "1.2.0"
   }
 }
