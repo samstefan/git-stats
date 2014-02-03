@@ -4,6 +4,7 @@ Git Stats
 A small node app that saves commit details to a database using Git hooks and makes them accessible via a JSON API.
 
 ## Install
+---
 
 Clone the project then change into the directory and
 
@@ -12,10 +13,12 @@ Clone the project then change into the directory and
 Then update the properties.js file with your database settings.
 
 ## Usage
+---
 
 To start collecting hook data you need to point your repository hook at `localhost:3010/hook`
 
 ### API
+---
 
 Commits for the hour:
 
@@ -55,3 +58,8 @@ You can also get all the commits for a time period by using `all` as the reposit
 ]
 
 ```
+
+## Release History
+---
+
+* v1.0.0 - Initial release.
